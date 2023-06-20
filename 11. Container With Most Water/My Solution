@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int saved_max = 0;
+        int i = 0;
+        int j = height.size() - 1;
+        int area = 0;
+
+        while(i < j){
+
+            if (height[i] < height[j]){
+                area =  min(height[i], height[j]) * (j - i);
+            }
+            else{
+                area = min(height[i], height[j]) * (j - i);
+            }
+
+            saved_max = max(area, saved_max);
+
+            if(height[i] < height[j]){
+                i++;
+            }
+            else if (height[i] > height[j]){
+                j--;
+            }
+            else{
+                i++;
+                j--;
+            }
+        }      
+        return saved_max;
+    }
+};
