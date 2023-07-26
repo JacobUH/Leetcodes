@@ -4,7 +4,7 @@ public:
         int start = 1;
         int cur_level = 1;
         int open_spaces = 0;
-        int max = *max_element(height.begin(), height.end()); // max = 5
+        int max = *max_element(height.begin(), height.end()); // max = 3
 
         while (start <= max) {
             int left = 0;
