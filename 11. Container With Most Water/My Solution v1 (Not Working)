@@ -1,33 +1,52 @@
 class Solution {
 public:
-    int maxArea(vector<int>& height) {
-        int saved_max = 0;
-        int i = 0;
-        int j = height.size() - 1;
-        int area = 0;
+    int trap(vector<int>& height){ 
+    // make an algorithm that goes from each y index from bottom to top and searches for open spaces
 
-        while(i < j){
+        int start = 1;
+        int cur_level = 1;
+        int open_spaces = 0;
+        int max = *max_element(height.begin(), height.end()); // max = 3
 
-            if (height[i] < height[j]){
-                area =  min(height[i], height[j]) * (j - i);
-            }
-            else{
-                area = min(height[i], height[j]) * (j - i);
+        while (start <= max){
+            int left = 0;
+            int right = height.size() - 1;
+
+            // find first block that matches current level height
+            while (left < height.size() && height[left] != cur_level){
+                left++; 
             }
 
-            saved_max = max(area, saved_max);
+            // find first block that matches current level height from right
+            while(right >= 0 && height[right] != cur_level){
+                right--;
+            }
 
-            if(height[i] < height[j]){
-                i++;
+            while (left < right){
+
+                // left pointer
+                if (height[left] < cur_level){
+                    open_spaces++;
+                    left++;
+                }
+                else{
+                    left++;
+                }
+
+                // right pointer
+                if (height[right] < cur_level){
+                    open_spaces++;
+                    right--;
+                }
+                else{
+                    right--;
+                }
             }
-            else if (height[i] > height[j]){
-                j--;
-            }
-            else{
-                i++;
-                j--;
-            }
-        }      
-        return saved_max;
-    }
+
+            start++;
+            cur_level++;
+            
+        }
+        return open_spaces;
+    }    
 };
